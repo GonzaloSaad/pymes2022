@@ -8,17 +8,18 @@ import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';
 import { MenuComponent } from './components/menu/menu.component';
+import { ArticulosComponent } from './components/articulos/articulos.component';
 
 @NgModule({
-  declarations: [AppComponent, InicioComponent, ArticulosFamiliasComponent, MenuComponent],
+  declarations: [AppComponent, InicioComponent, ArticulosFamiliasComponent, MenuComponent, ArticulosComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/inicio', pathMatch: 'full' },
       { path: 'inicio', component: InicioComponent },
-      { path: 'articulosFamilias', component: ArticulosFamiliasComponent }
-    ])
+      { path: 'articulosFamilias', component: ArticulosFamiliasComponent },
+      { path: 'articulos', component: ArticulosComponent }    ])
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: "/" }
