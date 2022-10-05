@@ -10,9 +10,10 @@ import {APP_BASE_HREF} from '@angular/common';
 import { MenuComponent } from './components/menu/menu.component';
 import { ArticulosComponent } from './components/articulos/articulos.component';
 import { ReactiveFormsModule } from "@angular/forms";
+import { AbbreviatePipe } from './pipes/abbreviate.pipe';
 
 @NgModule({
-  declarations: [AppComponent, InicioComponent, ArticulosFamiliasComponent, MenuComponent, ArticulosComponent],
+  declarations: [AppComponent, InicioComponent, ArticulosFamiliasComponent, MenuComponent, ArticulosComponent, AbbreviatePipe],
   imports: [
     BrowserModule,
     HttpClientModule,
