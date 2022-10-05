@@ -3,6 +3,7 @@ import { Articulo} from "../../models/articulo";
 import { ArticuloFamilia } from "../../models/articulo-familia";
 import { MockArticulosService } from "../../services/mock-articulos.service";
 import { ArticulosFamiliasService } from "../../services/articulos-familias.service";
+import {  FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-articulos",
@@ -37,6 +38,23 @@ export class ArticulosComponent implements OnInit {
     { Id: false, Nombre: "NO" }
   ];
 
+  FormBusqueda = new FormGroup({
+    Nombre: new FormControl(null),
+    Activo: new FormControl(null),
+  });
+
+  FormRegistro = new FormGroup({
+    IdArticulo: new FormControl(0),
+    Nombre: new FormControl(''),
+    Precio: new FormControl(0),
+    Stock: new FormControl(0),
+    CodigoDeBarra: new FormControl (''),
+    IdArticuloFamilia: new FormControl(0),
+    FechaAlta: new FormControl(''),
+    Activo: new FormControl(true),
+  });
+
+
 
   constructor(
     private articulosService: MockArticulosService,
@@ -55,12 +73,17 @@ export class ArticulosComponent implements OnInit {
 
   Agregar() {
     this.AccionABMC = "A";
+    this.FormRegistro.reset({Activo: true, IdArticulo: 0})
   }
 
   // Buscar segun los filtros, establecidos en FormRegistro
   Buscar() {
     this.articulosService
-      .get('', null, this.Pagina)
+      .get(
+        this.FormBusqueda.value.Nombre,
+        this.FormBusqueda.value.Activo,
+        this.Pagina,
+      )
       .subscribe((res: any) => {
         this.Items = res.Items;
         this.RegistrosTotal = res.RegistrosTotal;
@@ -75,6 +98,17 @@ export class ArticulosComponent implements OnInit {
 
   Consultar(Item:Articulo) {
     this.BuscarPorId(Item, "C");
+    this.FormRegistro.reset(
+      {
+        Nombre: Item.Nombre,
+        Precio: Item.Precio,
+        Stock: Item.Stock,
+        CodigoDeBarra: Item.CodigoDeBarra,
+        IdArticuloFamilia: Item.IdArticuloFamilia,
+        FechaAlta: Item.FechaAlta,
+        Activo: Item.Activo,
+      }
+    )
   }
 
   // comienza la modificacion, luego la confirma con el metodo Grabar

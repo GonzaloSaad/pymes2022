@@ -7,7 +7,9 @@ import { Articulo, Articulos } from "../models/articulo";
 })
 export class MockArticulosService {
   constructor() {}
-  get(Nombre: string, Activo: boolean|null, pagina: number):any {
+  get(Nombre: string|null|undefined, Activo: boolean|undefined|null, pagina: number):any {
+    console.log(Activo)
+    console.log(Nombre)
     var Items = Articulos.filter(item =>
       // Nombre == null  chequea por null y undefined
       // Nombre === null  chequea solo por null
